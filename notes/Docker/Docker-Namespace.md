@@ -7,6 +7,8 @@ Linux Namespace 是一种 Linux 内核提供的资源隔离方案：
 - 系统可以为进程分配不同的 Namespace；
 - 并保证不同的 Namespace 资源独立分配、进程彼此隔离；
 
+![namespace](/Users/zego/teststation/cloudNativeHomework/notes/images/geg3rg3rg4theh.png)
+
 #### 进程数据结构
 
 ```c
@@ -50,6 +52,9 @@ struct nsproxy {
 
   - 容器中进程交互还是采用 linux 常见的交互（ipc - inter process communication），包括信号量、共享内存、消息队列。
   - 容器的进程交互实际上还是 host 上具有相同 pid namespace 的进程间交互，因此需要再 ipc 资源申请时加入 namespace 信息 - 每个 ipc 资源有一个唯一的 32 位 id。
+  - 一个container中的某个进程只能和同一 container 中的其他进程通信，container 外部的进程对它来说好像不存在一样，因为它根本看不到。
+
+  ![截屏2022-07-09 下午2.19.22](/Users/zego/teststation/cloudNativeHomework/notes/images/hgdtre65dyuvkjbk.png)
 
 - pid namespace
 
@@ -67,6 +72,8 @@ struct nsproxy {
 - user namespace
 
   每个 container 可以有不同的 user 和 group id，container 内部用container 内部的用户执行程序，而不是 host 的用户。
+
+  ![截屏2022-07-09 下午2.23.07](/Users/zego/teststation/cloudNativeHomework/notes/images/sfghdfhjw3423523g.png)
 
 ## namespace 系统调用
 
